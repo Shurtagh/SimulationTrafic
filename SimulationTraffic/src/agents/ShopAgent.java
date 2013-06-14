@@ -12,7 +12,6 @@ public class ShopAgent implements Steppable {
 	
 	/*** attributs ***/
 	public int x, y;
-	private Stoppable stoppable;
 
 	/**
 	 *	Commentaires
@@ -22,10 +21,9 @@ public class ShopAgent implements Steppable {
 	/**
 	 * 	Constructeur
 	 */
-	public ShopAgent(int x , int y, Stoppable stoppable) {
+	public ShopAgent(int x , int y) {
 		this.x = x;
 		this.y = y;
-		this.stoppable = stoppable;
 	}
 
 	/**

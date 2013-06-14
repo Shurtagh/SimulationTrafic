@@ -11,7 +11,12 @@ import sim.engine.SimState;
 import sim.portrayal.grid.FastValueGridPortrayal2D;
 import sim.portrayal.grid.SparseGridPortrayal2D;
 import sim.portrayal.simple.OvalPortrayal2D;
+import sim.portrayal.simple.RectanglePortrayal2D;
 import sim.util.gui.SimpleColorMap;
+import agents.BossAgent;
+import agents.BuyerAgent;
+import agents.DealerAgent;
+import agents.ShopAgent;
 
 
 public class BeingsWithUI extends GUIState {
@@ -35,9 +40,45 @@ public class BeingsWithUI extends GUIState {
 		
 	}
 	
+	public OvalPortrayal2D getBossPortrayal() {
+		OvalPortrayal2D o = new OvalPortrayal2D();
+		o.scale = 6;
+		o.filled = true;
+		o.paint = Color.black;
+		return o;
+	}
+	
+	public RectanglePortrayal2D getDealerPortrayal() {
+		RectanglePortrayal2D r = new RectanglePortrayal2D();
+		r.scale = 2;
+		r.filled = true;
+		r.paint = Color.black;
+		return r;
+	}
+	
+	public RectanglePortrayal2D getShopPortrayal() {
+		RectanglePortrayal2D r = new RectanglePortrayal2D();
+		r.scale = 8;
+		r.filled = true;
+		r.paint = Color.white;
+		return r;
+	}
+	
+	public RectanglePortrayal2D getBuyerPortrayal() {
+		RectanglePortrayal2D r = new RectanglePortrayal2D();
+		r.scale = 2;
+		r.filled = true;
+		r.paint = Color.red;
+		return r;
+	}
+	
 	public void setupPortrayal() {
 		yardPortrayal.setField(Beings.getConstants().getYard());
-		yardPortrayal.setPortrayalForAll(new OvalPortrayal2D(Color.black));
+		yardPortrayal.setPortrayalForClass(BossAgent.class, getBossPortrayal());
+		yardPortrayal.setPortrayalForClass(DealerAgent.class, getDealerPortrayal());
+		yardPortrayal.setPortrayalForClass(ShopAgent.class, getShopPortrayal());
+		yardPortrayal.setPortrayalForClass(BuyerAgent.class,  getBuyerPortrayal());
+
 		
 		backPortrayal.setField(Beings.getConstants().getTerritory());
 		Color[] color = new Color[(int)Math.pow(2, Beings.getConstants().GANG_NUMBER)];
@@ -67,10 +108,9 @@ public class BeingsWithUI extends GUIState {
 				color[j] = getMixedColor(c);
 			}
 		}
-		for (Color j: color) {
-		System.out.println(j);
-		}
 		backPortrayal.setMap(new SimpleColorMap(color));
+		display.reset();
+		display.repaint();
 	}
 	
 	public void init(Controller c) {

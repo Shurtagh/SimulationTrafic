@@ -15,8 +15,8 @@ public class CopsAgent extends BeingAbstractAgent {
 	public int largeur;
 	public int hauteur;
 	
-	public CopsAgent(int x, int y, Stoppable stoppable) {
-		super(x, y, stoppable);
+	public CopsAgent(int x, int y, int zone_x, int zone_y) {
+		super(x, y);
 		//attributs caractéristiques
 		this.zone_x = zone_x;
 		this.zone_y = zone_y;
@@ -42,9 +42,11 @@ public class CopsAgent extends BeingAbstractAgent {
 		Beings.getConstants().getYard().getNeighborsHamiltonianDistance(x, y, Constants.MAX_PERCEPTION, false, xPos, yPos);
 		for(int i = 0; i < xPos.size(); i++) {
 			Bag res = Beings.getConstants().getYard().getObjectsAtLocation(xPos.get(i), yPos.get(i));
-			for(Object x: res) {
-				if (x instanceof GangMemberAbstractAgent) {
-					return (GangMemberAbstractAgent) x;
+			if (res != null) {
+				for(Object x: res) {
+					if (x instanceof GangMemberAbstractAgent) {
+						return (GangMemberAbstractAgent) x;
+					}
 				}
 			}
 		}

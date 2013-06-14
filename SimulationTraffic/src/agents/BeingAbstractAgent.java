@@ -24,12 +24,11 @@ public abstract class BeingAbstractAgent implements Steppable {
 	/**
 	 * 	Constructeur
 	 */
-	public BeingAbstractAgent(int x , int y, Stoppable stoppable) {
+	public BeingAbstractAgent(int x , int y) {
 
 		//attributs agent
 		this.x = x;
 		this.y = y;
-		this.stoppable = stoppable;
 		this.deplacement = Constants.DISTANCE_DEPLACEMENT;
 		this.perimetrePerception = Constants.PERIMETRE_PERCEPTION;
 		this.pv = Constants.DEFAULT_PV;
@@ -63,14 +62,14 @@ public abstract class BeingAbstractAgent implements Steppable {
 			this.y -= this.deplacement*Math.abs(current_y - y)/(current_y - y);
 			Beings.getConstants().getYard().setObjectLocation(this, this.x, this.y);
 		} else if (delta_y == 0) {
-			this.y -= this.deplacement*Math.abs(current_x - x)/(current_x - x);
+			this.x -= this.deplacement*Math.abs(current_x - x)/(current_x - x);
 			Beings.getConstants().getYard().setObjectLocation(this, this.x, this.y);
 		} else {
 			double ratio = delta_x / (delta_y + delta_x);
 			int mouv_x = (int) (this.deplacement * ratio);
 			int mouv_y = this.deplacement - mouv_x;
-			this.x += mouv_x;
-			this.y += mouv_y;
+			this.x -= mouv_x * Math.abs(current_x - x) /(current_x - x);
+			this.y -= mouv_y * Math.abs(current_y - y) /(current_y - y);
 			Beings.getConstants().getYard().setObjectLocation(this, this.x, this.y);
 		}
 	}
@@ -168,5 +167,13 @@ public abstract class BeingAbstractAgent implements Steppable {
 	
 	public void frapperEnnemisProches(Bag bag) {
 		
+	}
+	
+	public void setStoppable (Stoppable s) {
+		this.stoppable = s;
+	}
+	
+	public Stoppable getStoppable () {
+		return stoppable;
 	}
 }

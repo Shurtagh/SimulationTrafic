@@ -15,8 +15,8 @@ public class BuyerAgent extends BeingAbstractAgent {
 	public boolean isVisible;
 	
 	
-	public BuyerAgent(int x, int y, Stoppable stoppable) {
-		super(x, y, stoppable);
+	public BuyerAgent(int x, int y) {
+		super(x, y);
 	}
 
 	public void step(SimState state) {

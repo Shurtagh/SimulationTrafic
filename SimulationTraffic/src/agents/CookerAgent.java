@@ -9,8 +9,9 @@ import constantes.Constants;
 public class CookerAgent extends GangMemberAbstractAgent {
 
 	/*** caractéristiques ***/
-	private int charge_meth_courante;		//charge qu'il porte actuellement en methamphétamine
-	private int charge_fourniture_courante;	//charge qu'il porte actuellement en fourniture
+	public int charge_meth_courante;		//charge qu'il porte actuellement en methamphétamine
+	public int charge_fourniture_courante;	//charge qu'il porte actuellement en fourniture
+	public int charge_max;					//max de fourniture
 	public int cuisine_x;
 	public int cuisine_y;
 
@@ -23,16 +24,19 @@ public class CookerAgent extends GangMemberAbstractAgent {
 	/**
 	 * 	Constructeur
 	 */
-	public CookerAgent(int x , int y, Stoppable stoppable,BossAgent boss, int cuisine_x, int cuisine_y) {
+	public CookerAgent(int x , int y ,BossAgent boss, int cuisine_x, int cuisine_y, int gang_number) {
 
 		//appel classe mère
-		super(x,y,stoppable,boss);
+		super(x,y,boss, gang_number);
 
 		//attributs caractéristiques
 		this.charge_meth_courante = Constants.METH_INITIALE_COOCKER;
 		this.charge_fourniture_courante = Constants.FOURNITURE_INITIALE_COOCKER;
 		this.cuisine_x = cuisine_x;
 		this.cuisine_y = cuisine_y;
+		
+		//ajout � la liste du gang
+		this.boss.cookers.add(this);
 
 	}
 
@@ -76,6 +80,14 @@ public class CookerAgent extends GangMemberAbstractAgent {
 	/**
 	 *	FONCTIONS DE SERVICE
 	 */
+	
+	/**
+	 * Surcharge de la fonction die pour se retirer de la liste.
+	 */
+	public void die(){
+		super.die();
+		this.boss.cookers.remove(this);
+	}
 
 	/**
 	 *	Retourne vrai si il doit aller voir le boss, faux si il doit aller voir le magasin.
@@ -158,7 +170,7 @@ public class CookerAgent extends GangMemberAbstractAgent {
 		if(procheDuBoss()){
 
 			//demande de la fourniture au boss
-			this.charge_fourniture_courante = this.boss.donnerFournitureCuisinier();
+			this.charge_fourniture_courante = this.boss.donnerFournitureCuisinier(this);
 		}
 	}
 }

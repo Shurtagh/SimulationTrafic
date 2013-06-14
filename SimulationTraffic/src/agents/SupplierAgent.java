@@ -11,9 +11,9 @@ import constantes.Constants;
 public class SupplierAgent extends GangMemberAbstractAgent {
 
 	/*** caractéristiques ***/
-	private int charge_max; 		//max charge qu'il peut porter
-	private int charge_courante;	//charge qu'il porte actuellement en marchandise
-	private int montant_courant;	//montant courant de l'agent
+	public int charge_max; 		//max charge qu'il peut porter
+	public int charge_courante;	//charge qu'il porte actuellement en marchandise
+	public int montant_courant;	//montant courant de l'agent
 
 	/**
 	 *	Objectif
@@ -27,10 +27,10 @@ public class SupplierAgent extends GangMemberAbstractAgent {
 	/**
 	 * 	Constructeur
 	 */
-	public SupplierAgent(int x , int y, Stoppable stoppable,BossAgent boss) {
+	public SupplierAgent(int x , int y, BossAgent boss, int gang_number) {
 
 		//appel classe mère
-		super(x, y, stoppable, boss);
+		super(x, y, boss, gang_number);
 
 		//attributs caractéristiques
 		this.charge_max = Constants.CHARGE_MAX_SUPPLIER;
@@ -39,8 +39,19 @@ public class SupplierAgent extends GangMemberAbstractAgent {
 
 		//au début aller voir le boss
 		this.objectif = 0;
+		
+		//ajout liste boss
+		this.boss.suppliers.add(this);
 	}
 
+	/**
+	 * Surcharge de la fonction die pour se retirer de la liste.
+	 */
+	public void die(){
+		super.die();
+		this.boss.suppliers.remove(this);
+	}
+	
 	/**
 	 * Action appelée à chaque itération.
 	 */

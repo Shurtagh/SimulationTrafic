@@ -9,29 +9,29 @@ import constantes.Constants;
 public class FarmerAgent extends GangMemberAbstractAgent {
 
 	/*** caractéristiques ***/
-	private int charge_max; 		//max charge qu'il peut porter
-	private int charge_courante;	//charge qu'il porte actuellement en marchandise
+	public int charge_max; 		//max charge qu'il peut porter
+	public int charge_courante;	//charge qu'il porte actuellement en marchandise
 
 	//coordonnées du champ
-	private int champ_x;
-	private int champ_y;
+	public int champ_x;
+	public int champ_y;
 
 	/**
 	 *	Objectif
 	 *	=  0 => aller le boss
 	 *  <> 0 => aller dans le champs
 	 */
-	private int objectif;
+	public int objectif;
 
 
 	
 	/**
 	 * 	Constructeur
 	 */
-	public FarmerAgent(int x , int y, Stoppable stoppable,BossAgent boss, int champ_x, int champ_y) {
+	public FarmerAgent(int x , int y, BossAgent boss, int champ_x, int champ_y, int gang_number) {
 
 		//appel classe mère
-		super(x,y,stoppable,boss);
+		super(x,y,boss,gang_number);
 
 		//attributs caractéristiques
 		this.charge_max = Constants.CHARGE_MAX_FARMER;
@@ -43,6 +43,9 @@ public class FarmerAgent extends GangMemberAbstractAgent {
 
 		//au début aller voir le boss
 		this.objectif = 0;
+
+		//ajout � la liste du gang
+		this.boss.farmers.add(this);
 	}
 
 	/**
@@ -84,6 +87,14 @@ public class FarmerAgent extends GangMemberAbstractAgent {
 	 *	FONCTIONS DE SERVICE
 	 */
 
+	/**
+	 * Surcharge de la fonction die pour se retirer de la liste.
+	 */
+	public void die(){
+		super.die();
+		this.boss.farmers.remove(this);
+	}
+	
 	/**
 	 *	Retourne vrai si il doit aller voir le boss, faux si il doit aller voir le magasin.
 	 */

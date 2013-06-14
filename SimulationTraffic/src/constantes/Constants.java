@@ -1,6 +1,8 @@
 package constantes;
 import java.awt.Color;
 
+import agents.BossAgent;
+
 import sim.field.grid.IntGrid2D;
 import sim.field.grid.SparseGrid2D;
 
@@ -8,39 +10,60 @@ import sim.field.grid.SparseGrid2D;
 public class Constants {
 
 	//constantes buyer
-	public static final int MAX_DEGROGUAGE = 0;
-	public static final int MIN_DEDROGUAGE = 0;
-	public static final int MAX_PERCEPTION = 0;
-	public static final int MAX_CONSO_CANABIS = 0;
-	public static final int MIN_CONSO_CANABIS = 0;
-	public static final int PUISSANCE_CANABIS = 0;
-	public static final int PUISSANCE_METH = 0;
-	public static final int MAX_CONSO_METH = 0;
-	public static final int MIN_CONSO_METH = 0;
+	public static final int MAX_DEGROGUAGE = 15;
+	public static final int MIN_DEDROGUAGE = 5;
+	public static final int MAX_PERCEPTION = 25;
 	
+		//consommation canabis
+	public static final int MAX_CONSO_CANABIS = 50;
+	public static final int MIN_CONSO_CANABIS = 25;		
+	public static final int PUISSANCE_CANABIS = 1;
+		//consommation meth
+	public static final int MAX_CONSO_METH = 50;
+	public static final int MIN_CONSO_METH = 25;
+	public static final int PUISSANCE_METH = 2;
 	
-	public static int GRID_SIZE = 800;
-	public static int GANG_NUMBER = 3;
-	public static int PROD_MAX;
-	public static int CHARGE_MAX;
-	public static int MOVEMENT_MAX;
-	public static int INIT_SIZE_GANG = 100000;
+	//configuration
+	public static int GRID_SIZE = 500;		//taille de la grille
+	public static int GANG_NUMBER = 2;		//numéro de gang
+	public static int MOVEMENT_MAX = 1;		//?
+	public static int PROD_MAX = 1;			//?
+	public static int CHARGE_MAX = 1;		//?
+	
+	//distances initiales (/gang sauf shop et buyer)
+	public static int INITIAL_SHOP_NUMBER = 5;
+	public static int INITIAL_BUYER_NUMBER = 500;
+	
+	public static int INITIAL_DEALER_NUMBER = 200;
+	public static int INITIAL_FARMER_NUMBER = 1;
+	public static int INITIAL_COOKER_NUMBER = 1;
+	public static int INITIAL_SUPPLIER_NUMBER = 1;
+	public static int INITIAL_PROTECTOR_NUMBER = 1;
+	
+	//avancé
 	public SparseGrid2D yard;
 	public IntGrid2D territory;
 	public static Color[] GANG_COLOR;
-	public static int MIN_DISTANCE_BETWEEN_GANG = 400;
-	public static int[][] GRID;
+	public static int MIN_DISTANCE_BETWEEN_GANG = 100;
 	public int[][] GANG_CENTER = new int[GANG_NUMBER][2];
+	public int[][] SHOP_CENTER = new int[INITIAL_SHOP_NUMBER][2];
+	
+	//distance d'apparition
+	public static int MAX_DISTANCE_BOSS_FARMER = 10;
+	public static int MAX_DISTANCE_BOSS_SUPPLIER = 10;
+	public static int MAX_DISTANCE_BOSS_COOKER = 10;
+	public static int MAX_DISTANCE_BOSS_MANAGER = 10;
+	public static final int MAX_DISTANCE_BOSS_PROTECTOR = 10;
 	
 	//constantes cops
 	public static final int HAUTEUR_ZONE_COP = 0;
 	public static final int LARGEUR_ZONE_COP = 0;
 
 	//constantes beings
-	public static int DISTANCE_DEPLACEMENT = 1;
-	public static final int DEFAULT_PV = 0;
-	public static final int DEFAULT_ATTAQUE = 0;
-	public static final int DEFAULT_SHOOT_DISTANCE = 0;
+	public static int DISTANCE_DEPLACEMENT = 5;
+	public static final int DEFAULT_PV = 100;
+	public static final int DEFAULT_ATTAQUE = 20;
+	public static final int DEFAULT_SHOOT_DISTANCE = 15;
 
 	//constantes suppliers
 	public static int CHARGE_MAX_SUPPLIER = 30;
@@ -51,14 +74,27 @@ public class Constants {
 	public static int MAX_PRODUCTION_FARMER = 10;
 
 	//constantes shops
-	public static int PRIX_FOURNITURES;
-
+	public static int PRIX_FOURNITURES = 1;
+	public static int MIN_DISTANCE_BETWEEN_SHOP = 1;
+	
 	//constantes boss
 	public static int PREVISION_ACHAT_FOURNITURE_INITIALE = 1;
 	public static int RICHESSE_INITIALE = 1000;
-	public static int CANABIS_INITIALE = 0;
-	public static int FOURNITURE_INITIALE = 0;
-	public static int METH_INITIALE = 0;
+	public static int CANABIS_INITIALE = 1000;
+	public static int FOURNITURE_INITIALE = 100;
+	public static int METH_INITIALE = 100;
+	public static int PREVISION_DONNER_FOURNITURE = 1;
+	public static int PREVISION_PORTE_METH_MANAGER = 10;
+	public static int PREVISION_PORTE_CANABIS_MANAGER = 10;
+	public static int SEUIL_RICHESSE_DEALER = 1000;				//seuil à partir duquel on achète des dealers
+	
+	public static int PRIX_FARMER = 10;
+	public static int PRIX_SUPPLIER = 10;
+	public static int PRIX_COOKER = 10;
+	public static int PRIX_PROTECTOR = 10;
+	public static int PRIX_MANAGER = 10;
+	public static int PRIX_DEALER = 10;
+	
 
 	//constantes coocker
 	public static int FOURNITURE_TO_METH = 2;
@@ -66,11 +102,17 @@ public class Constants {
 	public static int METH_INITIALE_COOCKER = 2;
 
 	//constantes dealer
-	public static int LARGEUR_ZONE_DEALER;
-	public static int HAUTEUR_ZONE_DEALER;
+	public static int LARGEUR_ZONE_DEALER = 10;
+	public static int HAUTEUR_ZONE_DEALER = 10;
+	public static int CHARGE_CANABIS_MAX_DEALER = 200;
+	public static int CHARGE_METH_MAX_DEALER = 200;
+	
+	//constantes manager
+	public static int CHARGE_CANABIS_MAX_MANAGER = CHARGE_CANABIS_MAX_DEALER * 3;
+	public static int CHARGE_METH_MAX_MANAGER = CHARGE_METH_MAX_DEALER * 3;
 
 	//constantes Being Agent
-	public static int PERIMETRE_PERCEPTION = 3;
+	public static int PERIMETRE_PERCEPTION = 25;
 
 	/**
 	 *	FONCTION TOOLS
@@ -94,68 +136,11 @@ public class Constants {
 
 	public Constants() {
 		_initialisation();
-		yard = new SparseGrid2D(GRID_SIZE, GRID_SIZE);
-		GRID = new int[GRID_SIZE][GRID_SIZE];
-		GANG_COLOR = new Color[GANG_NUMBER];
 	}
 
 	private void _initialisation() {
 		yard = new SparseGrid2D(GRID_SIZE, GRID_SIZE);
 		territory = new IntGrid2D(GRID_SIZE, GRID_SIZE, 0);
-		
-		for(int i = 0; i < GANG_NUMBER; i++) {
-			int x, y;
-			do {
-				x = (int)(Math.random()*GRID_SIZE);
-				y = (int)(Math.random()*GRID_SIZE);
-			} while (!checkGangCenter(x, y));
-			GANG_CENTER[i][0] = x;
-			GANG_CENTER[i][1] = y;
-			int value = (int)Math.pow(2, i);
-			territory.set(x, y, value);
-			for (int j = 0; j < 4; j++) {
-				int current_x = x;
-				int current_y = y;
-				int allocation = INIT_SIZE_GANG/4;
-				while (allocation > 0) {
-					float ponderation_x = (float)Math.pow((double)Math.abs(current_x - x), 1) ;
-					float ponderation_y = (float)Math.pow((double)Math.abs(current_y - y), 1);
-					float ponderation;
-					if ((ponderation_x + ponderation_y) == 0) {
-						ponderation = (float)0;
-					} else {
-						ponderation = (float)((ponderation_x - ponderation_y)/(GRID_SIZE*2)*0.5);
-					}
-					//System.out.println(ponderation);
-					if (Math.random() > (0.5 /*- ponderation*/)) {
-						current_x += getSignedValue(1, ponderation_x/GRID_SIZE, (current_x - x));
-						if (current_x < 0) {
-							current_x = 0;
-						}
-						if (current_x > (GRID_SIZE-1)) {
-							current_x = GRID_SIZE-1;
-						}
-					} else {
-						current_y += getSignedValue(1, ponderation_y/GRID_SIZE, (current_y - y));
-						if (current_y < 0) {
-							current_y = 0;
-						}
-						if (current_y > (GRID_SIZE-1)) {
-							current_y = GRID_SIZE-1;
-						}
-					}
-					String res = getBinary(territory.get(current_x, current_y));
-					if (i+1 > res.length() || res.charAt(res.length()-i-1) == '0') {
-					//if (territory.get(current_x, current_y) == 0) {
-						//System.out.println("test");
-						
-						allocation--;
-						int oldValue = territory.get(current_x, current_y);
-						territory.set(current_x, current_y, (value + oldValue));
-					}
-				}
-			}
-		}
 		GANG_COLOR = new Color[GANG_NUMBER];
 	}
 
@@ -251,7 +236,7 @@ public class Constants {
 		return val;
 	}
 	
-	public String getBinary (int number) {
+	public static String getBinary (int number) {
 		double rest = number;
 		String res = "";
 		while (rest >= 2) {
@@ -269,13 +254,72 @@ public class Constants {
 			return 0 + res;
 		}
 	}
-
-	public static int getINIT_SIZE_GANG() {
-		return INIT_SIZE_GANG;
+	
+	public boolean checkFarmerDistance(int x, int y, int boss_x, int boss_y, int gang_number) {
+		if ((Math.abs(x - boss_y) + Math.abs(y - boss_y)) < MAX_DISTANCE_BOSS_FARMER) {
+			String binary = getBinary(territory.get(x, y));
+			if (binary.length() < gang_number) {
+				return false;
+			}
+			if (binary.charAt(binary.length() - 1 - gang_number) == '1') {				
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public static void setINIT_SIZE_GANG(int iNIT_SIZE_GANG) {
-		INIT_SIZE_GANG = iNIT_SIZE_GANG;
+	public boolean checkSupplierDistance(int x, int y, int boss_x, int boss_y, int gang_number) {
+		if ((Math.abs(x - boss_y) + Math.abs(y - boss_y)) < MAX_DISTANCE_BOSS_SUPPLIER) {
+			String binary = getBinary(territory.get(x, y));
+			if (binary.charAt(binary.length() - 1 - gang_number) == '1') {				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkCookerDistance(int x, int y, int boss_x, int boss_y, int gang_number) {
+		if ((Math.abs(x - boss_y) + Math.abs(y - boss_y)) < MAX_DISTANCE_BOSS_COOKER) {
+			String binary = getBinary(territory.get(x, y));
+			if (binary.charAt(binary.length() - 1 - gang_number) == '1') {				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkProtectorDistance(int x, int y, int boss_x, int boss_y, int gang_number) {
+		if ((Math.abs(x - boss_y) + Math.abs(y - boss_y)) < MAX_DISTANCE_BOSS_PROTECTOR) {
+			String binary = getBinary(territory.get(x, y));
+			if (binary.charAt(binary.length() - 1 - gang_number) == '1') {				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkShopDistance(int x, int y) {
+		if (territory.get(x, y) == 0) {
+			boolean flag = true;
+			if (SHOP_CENTER != null) {
+				for(int[] i: SHOP_CENTER) {
+					int distance = Math.abs(i[0] - x) + Math.abs(i[1] - y);
+					if (distance < MIN_DISTANCE_BETWEEN_SHOP) {
+						flag = false;
+					}
+				}
+			}
+			return flag;
+		}
+		return false;
+	}
+	
+	public static int getINITIAL_DEALER_NUMBER() {
+		return INITIAL_DEALER_NUMBER;
+	}
+
+	public static void setINITIAL_DEALER_NUMBER(int iNITIAL_DEALER_NUMBER) {
+		INITIAL_DEALER_NUMBER = iNITIAL_DEALER_NUMBER;
 	}
 
 	public static Color[] getGANG_COLOR() {
@@ -294,13 +338,7 @@ public class Constants {
 		MIN_DISTANCE_BETWEEN_GANG = mIN_DISTANCE_BETWEEN_GANG;
 	}
 
-	public static int[][] getGRID() {
-		return GRID;
-	}
-
-	public static void setGRID(int[][] gRID) {
-		GRID = gRID;
-	}
+	
 
 	public int[][] getGANG_CENTER() {
 		return GANG_CENTER;
